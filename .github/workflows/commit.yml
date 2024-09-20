@@ -1,0 +1,23 @@
+name: Frequent Commit
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'  # Khiav txhua feeb
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Hloov ntaub ntawv (piv txwv li hloov timestamp)
+        run: date > timestamp.txt
+
+      - name: Commit cov kev hloov
+        run: |
+          git config --local user.email "skvgithub@gmail.com"
+          git config --local user.name "sengkue"
+          git add .
+          git commit -m "Automated frequent commit"
+          git push
