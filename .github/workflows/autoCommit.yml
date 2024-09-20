@@ -18,5 +18,7 @@ jobs:
         git config --local user.name "sengkue"
         git config --local user.email "skvgithub@gmail.com"
         git add .
-        git commit -m "Auto commit from GitHub Actions at $(date '+%Y-%m-%d %H:%M:%S')"
+        git commit -m "Auto commit from sengkuevang"
         git push origin main
+        
+        # git commit -m "Auto commit from GitHub Actions at $(date '+%Y-%m-%d %H:%M:%S')"
