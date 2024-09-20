@@ -1,113 +1,41 @@
-/* Apply a modern font and reset margin and padding */
+/* Reset margin and padding for body and container */
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
     box-sizing: border-box;
-    background-color: #f0f4f8;
 }
 
-/* Center everything vertically and horizontally */
+/* Ensure the profile container takes up the full available space without margin */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 100vh; /* Vertically center everything */
     margin: 0;
+    padding: 0;
 }
 
-/* Style the main heading */
-h1 {
-    color: #333;
-    margin-bottom: 20px;
-    font-size: 2rem;
-}
-
-/* Style the input field */
-input[type="text"] {
-    padding: 10px 15px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    outline: none;
-    width: 300px;
-    transition: border-color 0.3s ease;
-}
-
-/* Add focus effect for input */
-input[type="text"]:focus {
-    border-color: #007bff;
-}
-
-/* Style the search and download buttons */
-button {
-    padding: 10px 20px;
-    font-size: 1rem;
-    margin: 10px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-/* Style the profile card */
 #profile {
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     padding: 20px;
     text-align: center;
-    width: 300px;
-    margin: 20px auto;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+    width: 300px; /* You can adjust the width */
+    margin: 0 auto;
+    background-color: #f9f9f9; /* Adjust as needed */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Add a hover effect for the profile card */
-#profile:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Style the avatar */
+/* Ensure no extra white space on the profile content */
 #profile img {
     display: block;
-    margin: 0 auto 15px;
-    border-radius: 50%;
-    border: 2px solid #007bff;
-    width: 100px;
-    height: 100px;
+    margin: 0 auto;
 }
 
-/* Style the headings and text inside the profile card */
-#profile h2 {
-    color: #333;
-    margin-bottom: 10px;
+h2 {
+    margin: 10px 0;
 }
 
-#profile p {
-    color: #555;
+p {
     margin: 5px 0;
-    font-size: 0.9rem;
-}
-
-/* Style the profile link */
-#profile a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-#profile a:hover {
-    color: #0056b3;
 }
