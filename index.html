@@ -4,82 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub User Search</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #e9ecef;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            text-align: center;
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        input {
-            padding: 10px;
-            width: calc(100% - 22px);
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        button {
-            padding: 10px 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #profile {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 10px;
-            background-color: #f8f9fa;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        img {
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-
-        a {
-            display: inline-block;
-            margin-top: 10px;
-            color: #007bff;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        a:hover {
-            color: #0056b3;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -88,33 +13,6 @@
         <button id="searchBtn">Search</button>
         <div id="profile"></div>
     </div>
-    <script>
-        document.getElementById('searchBtn').addEventListener('click', function() {
-            const username = document.getElementById('username').value;
-            const profileDiv = document.getElementById('profile');
-
-            fetch(`https://api.github.com/users/${username}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('User not found');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    profileDiv.innerHTML = `
-                        <h2>${data.login}</h2>
-                        <img src="${data.avatar_url}" alt="${data.login}'s avatar" width="100">
-                        <p><strong>Bio:</strong> ${data.bio || 'N/A'}</p>
-                        <p><strong>Public Repos:</strong> ${data.public_repos}</p>
-                        <p><strong>Followers:</strong> ${data.followers}</p>
-                        <p><strong>Following:</strong> ${data.following}</p>
-                        <a href="${data.html_url}" target="_blank">View Profile</a>
-                    `;
-                })
-                .catch(error => {
-                    profileDiv.innerHTML = `<p style="color: red;">${error.message}</p>`;
-                });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
