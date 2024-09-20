@@ -21,7 +21,6 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <a href="${data.html_url}" target="_blank">View Profile</a>
             `;
             downloadBtn.style.display = 'inline-block'; // Show download button
-            downloadBtn.onclick = () => downloadProfile(data);
         })
         .catch(error => {
             profileDiv.innerHTML = `<p style="color: red;">${error.message}</p>`;
@@ -29,35 +28,14 @@ document.getElementById('searchBtn').addEventListener('click', function() {
         });
 });
 
-function downloadProfile(data) {
-    // Create a text content
-    const textContent = `
-        Username: ${data.login}
-        Bio: ${data.bio || 'N/A'}
-        Public Repos: ${data.public_repos}
-        Followers: ${data.followers}
-        Following: ${data.following}
-        Profile URL: ${data.html_url}
-    `;
-
-    // Create a blob for text download
-    const blob = new Blob([textContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${data.login}_profile.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    
-    // Capture the profile as an image
+document.getElementById('downloadBtn').addEventListener('click', function() {
     html2canvas(document.getElementById('profile')).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
         const imgAnchor = document.createElement('a');
         imgAnchor.href = imgData;
-        imgAnchor.download = `${data.login}_profile.png`;
+        imgAnchor.download = `github_profile.png`;
         document.body.appendChild(imgAnchor);
         imgAnchor.click();
         document.body.removeChild(imgAnchor);
     });
-}
+});
