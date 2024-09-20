@@ -17,6 +17,8 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Bio:</strong> ${data.bio || 'N/A'}</p>
                 <p><strong>Location:</strong> ${data.location || 'N/A'}</p>
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
+                <p><strong>Followers:</strong> ${data.followers}</p>
+                <p><strong>Following:</strong> ${data.following}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
             `;
             downloadBtn.style.display = 'block';
@@ -28,7 +30,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 });
 
 document.getElementById('downloadBtn').addEventListener('click', function() {
-    html2canvas(document.getElementById('profile'),{ useCORS: true }).then(function(canvas) {
+    html2canvas(document.getElementById('profile')).then(function(canvas) {
         const link = document.createElement('a');
         link.href = canvas.toDataURL();
         link.download = 'github_profile.png';
