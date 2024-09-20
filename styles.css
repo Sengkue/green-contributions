@@ -1,74 +1,41 @@
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #e9ecef;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+/* Reset margin and padding for body and container */
+body, html {
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+/* Ensure the profile container takes up the full available space without margin */
 .container {
-    text-align: center;
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    width: 300px;
-}
-
-h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-input {
-    padding: 10px;
-    width: calc(100% - 22px);
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-button {
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #0056b3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Vertically center everything */
+    margin: 0;
+    padding: 0;
 }
 
 #profile {
-    margin-top: 20px;
-    padding: 15px;
-    border-radius: 10px;
-    background-color: #f8f9fa;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    width: 300px; /* You can adjust the width */
+    margin: 0 auto;
+    background-color: #f9f9f9; /* Adjust as needed */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-img {
-    border-radius: 50%;
-    margin-bottom: 10px;
+/* Ensure no extra white space on the profile content */
+#profile img {
+    display: block;
+    margin: 0 auto;
 }
 
-a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.3s;
+h2 {
+    margin: 10px 0;
 }
 
-a:hover {
-    color: #0056b3;
+p {
+    margin: 5px 0;
 }
