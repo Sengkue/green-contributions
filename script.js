@@ -17,8 +17,8 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Bio:</strong> ${data.bio || 'N/A'}</p>
                 <p><strong>Location:</strong> ${data.location || 'N/A'}</p>
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
-                <p><strong>Followers:</strong> ${data.followers}</p>
-                <p><strong>Following:</strong> ${data.following}</p>
+                <p><i class="fas fa-user-friends"></i> Followers: ${data.followers}</p>
+                <p><i class="fas fa-user"></i> Following: ${data.following}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
             `;
             downloadBtn.style.display = 'block';
