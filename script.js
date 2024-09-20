@@ -30,8 +30,8 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 });
 
 function downloadProfileAsImage() {
-    // Capture the profile section as an image
-    html2canvas(document.getElementById('profile')).then(canvas => {
+    // Capture the profile section as an image with useCORS enabled for cross-origin images
+    html2canvas(document.getElementById('profile'), { useCORS: true }).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
         const imgAnchor = document.createElement('a');
         imgAnchor.href = imgData;
@@ -41,3 +41,4 @@ function downloadProfileAsImage() {
         document.body.removeChild(imgAnchor); // Remove the anchor element after download
     });
 }
+
