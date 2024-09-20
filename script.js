@@ -35,3 +35,15 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
         link.click();
     });
 });
+function downloadProfileAsImage() {
+    // Capture the profile section as an image with useCORS enabled for cross-origin images
+    html2canvas(document.getElementById('profile'), { useCORS: true }).then(canvas => {
+        const imgData = canvas.toDataURL('image/png');
+        const imgAnchor = document.createElement('a');
+        imgAnchor.href = imgData;
+        imgAnchor.download = 'github_profile.png'; // Name of the image file
+        document.body.appendChild(imgAnchor);
+        imgAnchor.click();
+        document.body.removeChild(imgAnchor); // Remove the anchor element after download
+    });
+}
