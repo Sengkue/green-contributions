@@ -1,0 +1,22 @@
+name: Auto Commit and Push
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'  # Every 1 minute
+  push:
+    branches: [ "main" ]
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Add, commit, and push changes
+      run: |
+        git config --local user.name "sengkue"
+        git config --local user.email "skvgithub@gmail.com"
+        git add .
+        git commit -m "Auto commit from GitHub Actions at $(date '+%Y-%m-%d %H:%M:%S')"
+        git push origin main
