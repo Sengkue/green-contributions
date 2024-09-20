@@ -21,6 +21,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <a href="${data.html_url}" target="_blank">View Profile</a>
             `;
             downloadBtn.style.display = 'inline-block'; // Show download button
+            downloadBtn.onclick = () => downloadProfileAsImage();
         })
         .catch(error => {
             profileDiv.innerHTML = `<p style="color: red;">${error.message}</p>`;
@@ -28,14 +29,15 @@ document.getElementById('searchBtn').addEventListener('click', function() {
         });
 });
 
-document.getElementById('downloadBtn').addEventListener('click', function() {
+function downloadProfileAsImage() {
+    // Capture the profile section as an image
     html2canvas(document.getElementById('profile')).then(canvas => {
         const imgData = canvas.toDataURL('image/png');
         const imgAnchor = document.createElement('a');
         imgAnchor.href = imgData;
-        imgAnchor.download = `github_profile.png`;
+        imgAnchor.download = 'github_profile.png'; // Name of the image file
         document.body.appendChild(imgAnchor);
         imgAnchor.click();
-        document.body.removeChild(imgAnchor);
+        document.body.removeChild(imgAnchor); // Remove the anchor element after download
     });
-});
+}
