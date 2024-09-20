@@ -58,59 +58,6 @@ button:hover {
     transform: translateY(-2px);
 }
 
-/* Style the profile card */
-#profile {
-    border: 1px solid #ddd;
-    padding: 20px;
-    text-align: center;
-    width: 300px;
-    margin: 20px auto;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-
-/* Add a hover effect for the profile card */
-#profile:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Style the avatar */
-#profile img {
-    display: block;
-    margin: 0 auto 15px;
-    border-radius: 50%;
-    border: 2px solid #007bff;
-    width: 100px;
-    height: 100px;
-}
-
-/* Style the headings and text inside the profile card */
-#profile h2 {
-    color: #333;
-    margin-bottom: 10px;
-}
-
-#profile p {
-    color: #555;
-    margin: 5px 0;
-    font-size: 0.9rem;
-}
-
-/* Style the profile link */
-#profile a {
-    display: inline-block;
-    margin-top: 10px;
-    color: #007bff;
-    text-decoration: none;
-    font-weight: bold;
-    transition: color 0.3s ease;
-}
-
-#profile a:hover {
-    color: #0056b3;
-}
 #profile {
     border: 2px solid #ddd;
     padding: 20px;
