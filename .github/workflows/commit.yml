@@ -1,39 +1,23 @@
-name: Automated Contributions
+name: Frequent Commit
 
 on:
   schedule:
     - cron: '*/1 * * * *'  # Khiav txhua feeb
 
 jobs:
-  make-contribution:
+  commit:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Make daily contribution
+
+      - name: Hloov ntaub ntawv (piv txwv li hloov timestamp)
+        run: date > timestamp.txt
+
+      - name: Commit cov kev hloov
         run: |
-          echo "Making automated contribution"
-          echo "$(date)" >> README.md
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v7
-        with:
-          author_name: "GitHub Actions"
-          author_email: "actions@github.com"
-          message: "Automated contribution"
-          add: "README.md"
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          branch: daily-contribution
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Open pull request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          title: "Automated Contribution"
-          commit-message: "Automated contribution"
-          branch: daily-contribution
-          base: main
-          body: "This pull request was created automatically by a GitHub Actions workflow to make an automated contribution."
-          token: ${{ secrets.GITHUB_TOKEN }}
+          git config --local user.email "skvgithub@gmail.com"
+          git config --local user.name "sengkue"
+          git add .
+          git commit -m "Automated frequent commit"
+          git push
