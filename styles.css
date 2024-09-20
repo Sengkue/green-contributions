@@ -101,3 +101,19 @@ button:hover {
 #profile a:hover {
     background-color: #0056b3;
 }
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.flex-container p {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.flex-container i {
+    margin-right: 5px; /* Adjust space between icon and text */
+}
