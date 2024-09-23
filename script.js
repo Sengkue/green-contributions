@@ -11,6 +11,10 @@ document.getElementById('searchBtn').addEventListener('click', function() {
             return response.json();
         })
         .then(data => {
+            // Use a CORS proxy for the contributions chart
+            const chartUrl = `https://ghchart.rshah.org/${username}`;
+            const proxyUrl = `https://cors-anywhere.herokuapp.com/${chartUrl}`;
+
             profileDiv.innerHTML = `
                 <h2>${data.login}</h2>
                 <img src="${data.avatar_url}" alt="${data.login}'s avatar" width="100">
@@ -19,7 +23,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
                 <h3>Contributions:</h3>
-                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none;" />
+                <img src="${proxyUrl}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none;" />
             `;
             downloadBtn.style.display = 'block';
         })
