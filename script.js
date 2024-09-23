@@ -3,7 +3,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
     const profileDiv = document.getElementById('profile');
     const downloadBtn = document.getElementById('downloadBtn');
 
-    // Clear previous profile content and hide the profile div
+    // Clear previous profile content and hide the profile div initially
     profileDiv.innerHTML = '';
     profileDiv.style.display = 'none';
     downloadBtn.style.display = 'none';
@@ -30,7 +30,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
             downloadBtn.style.display = 'block'; // Show download button
         })
         .catch(error => {
-            profileDiv.innerHTML = `<p>User not found. Please try again.</p>`;
+            profileDiv.innerHTML = `<p>No data!</p>`;
             profileDiv.style.display = 'block'; // Show the message
             downloadBtn.style.display = 'none'; // Hide download button
         });
