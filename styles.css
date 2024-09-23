@@ -114,7 +114,7 @@ button:hover {
 
 /* Style the contributions chart */
 #profile img.contribution-chart {
-    width: 150px; /* Adjust width */
+    width: 100%; /* Adjust width */
     height: 150px; /* Equal height for square aspect ratio */
     object-fit: cover; /* Ensures the image fits within the square */
     margin-top: 10px; /* Add some spacing above the chart */
