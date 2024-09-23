@@ -12,9 +12,10 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     min-height: 100vh;
     margin: 0;
+    padding-top: 50px; /* Add padding to make it look better */
 }
 
 /* Style the main heading */
@@ -58,32 +59,38 @@ button:hover {
     transform: translateY(-2px);
 }
 
-/* Style the profile card */
+/* Adjust the profile card */
 #profile {
-    border: 1px solid #ddd;
+    width: 100%;  /* Full width */
+    height: 40vh;  /* 40% of viewport height */
     padding: 20px;
     text-align: center;
-    width: 300px;
     margin: 20px auto;
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-
-/* Add a hover effect for the profile card */
-#profile:hover {
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 0;  /* Remove rounded corners */
+    box-shadow: none;  /* Remove shadow */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 /* Style the avatar */
 #profile img {
     display: block;
-    margin: 0 auto 15px;
-    border-radius: 50%;
+    border-radius: 50%; /* Keep the avatar circular */
     border: 2px solid #007bff;
     width: 100px;
     height: 100px;
+    margin-bottom: 15px;
+}
+
+/* Make sure the contributions are styled well */
+#profile .contributions {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    color: #555;
 }
 
 /* Style the headings and text inside the profile card */
@@ -111,12 +118,3 @@ button:hover {
 #profile a:hover {
     color: #0056b3;
 }
-
-/* Style the contributions chart */
-#profile img.contribution-chart {
-    width: 100%; /* Adjust width */
-    height: 150px; /* Equal height for square aspect ratio */
-    object-fit: cover; /* Ensures the image fits within the square */
-    margin-top: 10px; /* Add some spacing above the chart */
-}
-

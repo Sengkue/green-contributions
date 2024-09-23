@@ -3,7 +3,6 @@ document.getElementById('searchBtn').addEventListener('click', function() {
     const profileDiv = document.getElementById('profile');
     const downloadBtn = document.getElementById('downloadBtn');
 
-    // Fetch GitHub user details
     fetch(`https://api.github.com/users/${username}`)
         .then(response => {
             if (!response.ok) {
@@ -12,32 +11,40 @@ document.getElementById('searchBtn').addEventListener('click', function() {
             return response.json();
         })
         .then(data => {
-            // Display the user profile details along with the contribution chart
             profileDiv.innerHTML = `
                 <h2>${data.login}</h2>
                 <img src="${data.avatar_url}" alt="${data.login}'s avatar" width="100">
                 <p><strong>Bio:</strong> ${data.bio || 'N/A'}</p>
                 <p><strong>Location:</strong> ${data.location || 'N/A'}</p>
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
+                <p class="contributions"><strong>Contributions:</strong> Loading...</p> <!-- Placeholder for contributions -->
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
-                <h3>Contributions:</h3>
-                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" class="contribution-chart" />
             `;
-            downloadBtn.style.display = 'block'; // Show the download button
+            // Call the GitHub events API to get contributions (example)
+            fetch(`https://api.github.com/users/${username}/events/public`)
+                .then(eventResponse => eventResponse.json())
+                .then(events => {
+                    const contributions = events.length;  // Simple way to count contributions
+                    const contributionsElement = document.querySelector('.contributions');
+                    contributionsElement.innerHTML = `<strong>Contributions:</strong> ${contributions} in the last year`;
+                })
+                .catch(err => {
+                    document.querySelector('.contributions').innerHTML = `<strong>Contributions:</strong> N/A`;
+                });
+
+            downloadBtn.style.display = 'block';
         })
         .catch(error => {
-            // Show error message if user not found
             profileDiv.innerHTML = `<p>User not found. Please try again.</p>`;
-            downloadBtn.style.display = 'none'; // Hide download button on error
+            downloadBtn.style.display = 'none';
         });
 });
 
-// Function to download the profile section as an image
 document.getElementById('downloadBtn').addEventListener('click', function() {
-    html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
+    html2canvas(document.getElementById('profile'),{ useCORS: true }).then(function(canvas) {
         const link = document.createElement('a');
         link.href = canvas.toDataURL();
-        link.download = 'github_profile.png'; // Set download name
-        link.click(); // Trigger download
+        link.download = 'github_profile.png';
+        link.click();
     });
 });
