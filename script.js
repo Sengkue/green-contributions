@@ -11,29 +11,17 @@ document.getElementById('searchBtn').addEventListener('click', function() {
             return response.json();
         })
         .then(data => {
-            // Create the contribution image with CORS
-            const contributionImg = new Image();
-            contributionImg.crossOrigin = "Anonymous";
-            contributionImg.src = `https://ghchart.rshah.org/${username}`;
-            
-            contributionImg.onload = function() {
-                profileDiv.innerHTML = `
-                    <h2>${data.login}</h2>
-                    <img src="${data.avatar_url}" alt="${data.login}'s avatar" width="100">
-                    <p><strong>Bio:</strong> ${data.bio || 'N/A'}</p>
-                    <p><strong>Location:</strong> ${data.location || 'N/A'}</p>
-                    <p><strong>Public Repos:</strong> ${data.public_repos}</p>
-                    <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
-                    <h3>Contributions:</h3>
-                    <img src="${contributionImg.src}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
-                `;
-                downloadBtn.style.display = 'block';
-            };
-            
-            contributionImg.onerror = function() {
-                // Handle error if image fails to load
-                profileDiv.innerHTML += `<p>Contribution chart not available.</p>`;
-            };
+            profileDiv.innerHTML = `
+                <h2>${data.login}</h2>
+                <img src="${data.avatar_url}" alt="${data.login}'s avatar" width="100">
+                <p><strong>Bio:</strong> ${data.bio || 'N/A'}</p>
+                <p><strong>Location:</strong> ${data.location || 'N/A'}</p>
+                <p><strong>Public Repos:</strong> ${data.public_repos}</p>
+                <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
+                <h3>Contributions:</h3>
+                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" crossorigin="anonymous" />
+            `;
+            downloadBtn.style.display = 'block';
         })
         
         .catch(error => {
