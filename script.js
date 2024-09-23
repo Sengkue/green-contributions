@@ -19,25 +19,31 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
                 <h3>Contributions:</h3>
-                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" class="contribution-chart" style="border-radius: 0; box-shadow: none;" />
+                <img id="contributionChart" src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
             `;
             downloadBtn.style.display = 'block';
-
-            // Add an event listener to the contribution chart to ensure it's loaded before downloading
-            const chartImg = profileDiv.querySelector('.contribution-chart');
-            chartImg.onload = () => {
-                downloadBtn.onclick = () => {
-                    html2canvas(profileDiv, { useCORS: true }).then(canvas => {
-                        const link = document.createElement('a');
-                        link.href = canvas.toDataURL();
-                        link.download = 'github_profile.png';
-                        link.click();
-                    });
-                };
-            };
         })
         .catch(error => {
             profileDiv.innerHTML = `<p>User not found. Please try again.</p>`;
             downloadBtn.style.display = 'none';
         });
+});
+
+document.getElementById('downloadBtn').addEventListener('click', function() {
+    const contributionChart = document.getElementById('contributionChart');
+
+    // Check if the contribution chart has loaded
+    contributionChart.onload = function() {
+        html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL();
+            link.download = 'github_profile.png';
+            link.click();
+        });
+    };
+
+    // If the image is already loaded, trigger the onload function
+    if (contributionChart.complete) {
+        contributionChart.onload();
+    }
 });
