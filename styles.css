@@ -24,6 +24,13 @@ h1 {
     font-size: 2rem;
 }
 
+/* Style the input field container */
+.input-container {
+    position: relative;
+    width: 300px; /* Width of the input field */
+    margin-bottom: 20px; /* Space between input and buttons */
+}
+
 /* Style the input field */
 input[type="text"] {
     padding: 10px 15px;
@@ -31,7 +38,7 @@ input[type="text"] {
     border: 1px solid #ccc;
     border-radius: 25px;
     outline: none;
-    width: 300px;
+    width: 100%; /* Full width */
     transition: border-color 0.3s ease;
 }
 
@@ -40,11 +47,27 @@ input[type="text"]:focus {
     border-color: #007bff;
 }
 
+/* Style the clear icon */
+.clear-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #999; /* Icon color */
+    font-size: 1.2rem; /* Adjust size */
+}
+
+/* Change icon color on hover */
+.clear-icon:hover {
+    color: #007bff;
+}
+
 /* Style the search and download buttons */
 button {
     padding: 10px 20px;
     font-size: 1rem;
-    margin: 10px;
+    margin: 5px; /* Slightly reduce margin for closer spacing */
     border: none;
     border-radius: 25px;
     cursor: pointer;
