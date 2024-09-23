@@ -19,7 +19,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
                 <h3>Contributions:</h3>
-                <img id="contributionChart" src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
+                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
             `;
             downloadBtn.style.display = 'block';
         })
@@ -30,20 +30,17 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 });
 
 document.getElementById('downloadBtn').addEventListener('click', function() {
-    const contributionChart = document.getElementById('contributionChart');
+    // Show the contribution chart if it was hidden
+    const contributionChart = document.querySelector('#profile img:last-of-type');
+    contributionChart.style.display = 'block';
 
-    // Check if the contribution chart has loaded
-    contributionChart.onload = function() {
-        html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
-            const link = document.createElement('a');
-            link.href = canvas.toDataURL();
-            link.download = 'github_profile.png';
-            link.click();
-        });
-    };
+    html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL();
+        link.download = 'github_profile.png';
+        link.click();
 
-    // If the image is already loaded, trigger the onload function
-    if (contributionChart.complete) {
-        contributionChart.onload();
-    }
+        // Optionally, hide the contribution chart again after download
+        contributionChart.style.display = 'none';
+    });
 });
