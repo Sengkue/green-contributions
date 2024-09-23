@@ -12,37 +12,32 @@ document.getElementById('searchBtn').addEventListener('click', function() {
         })
         .then(data => {
             profileDiv.innerHTML = `
-            <h2>${data.login}</h2>
-            <img src="${data.avatar_url}" alt="${data.login}'s avatar" width="100">
-            <p><strong>Bio:</strong> ${data.bio || 'N/A'}</p>
-            <p><strong>Location:</strong> ${data.location || 'N/A'}</p>
-            <p><strong>Public Repos:</strong> ${data.public_repos}</p>
-            <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
-            <h3>Contributions:</h3>
-            <img src="https://cors-anywhere.herokuapp.com/https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" crossorigin="anonymous" />
-        `;
-        
+                <h2>${data.login}</h2>
+                <img src="${data.avatar_url}" alt="${data.login}'s avatar" width="100">
+                <p><strong>Bio:</strong> ${data.bio || 'N/A'}</p>
+                <p><strong>Location:</strong> ${data.location || 'N/A'}</p>
+                <p><strong>Public Repos:</strong> ${data.public_repos}</p>
+                <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
+                <h3>Contributions:</h3>
+                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" class="contribution-chart" style="border-radius: 0; box-shadow: none;" />
+            `;
             downloadBtn.style.display = 'block';
+
+            // Add an event listener to the contribution chart to ensure it's loaded before downloading
+            const chartImg = profileDiv.querySelector('.contribution-chart');
+            chartImg.onload = () => {
+                downloadBtn.onclick = () => {
+                    html2canvas(profileDiv, { useCORS: true }).then(canvas => {
+                        const link = document.createElement('a');
+                        link.href = canvas.toDataURL();
+                        link.download = 'github_profile.png';
+                        link.click();
+                    });
+                };
+            };
         })
-        
         .catch(error => {
             profileDiv.innerHTML = `<p>User not found. Please try again.</p>`;
             downloadBtn.style.display = 'none';
         });
-});
-
-document.getElementById('downloadBtn').addEventListener('click', function() {
-    // Show the contribution chart if it was hidden
-    const contributionChart = document.querySelector('#profile img:last-of-type');
-    contributionChart.style.display = 'block';
-
-    html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL();
-        link.download = 'github_profile.png';
-        link.click();
-
-        // Optionally, hide the contribution chart again after download
-        contributionChart.style.display = 'none';
-    });
 });
