@@ -19,7 +19,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
                 <h3>Contributions:</h3>
-                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" />
+                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" class="contribution-chart" />
             `;
             downloadBtn.style.display = 'block';
         })
@@ -27,13 +27,4 @@ document.getElementById('searchBtn').addEventListener('click', function() {
             profileDiv.innerHTML = `<p>User not found. Please try again.</p>`;
             downloadBtn.style.display = 'none';
         });
-});
-
-document.getElementById('downloadBtn').addEventListener('click', function() {
-    html2canvas(document.getElementById('profile'),{ useCORS: true }).then(function(canvas) {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL();
-        link.download = 'github_profile.png';
-        link.click();
-    });
 });
