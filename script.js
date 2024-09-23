@@ -19,7 +19,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
                 <h3>Contributions:</h3>
-                <img id="contributionChart" src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" crossOrigin="anonymous" />
+                <img id="contributionGraph" src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" crossorigin="anonymous" />
             `;
             downloadBtn.style.display = 'block';
         })
@@ -30,10 +30,21 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 });
 
 document.getElementById('downloadBtn').addEventListener('click', function() {
-    html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL();
-        link.download = 'github_profile.png';
-        link.click();
-    });
+    const contributionGraph = document.getElementById('contributionGraph');
+    
+    // Set crossOrigin attribute for CORS handling
+    contributionGraph.crossOrigin = "anonymous";
+    
+    // Wait for the image to load completely before capturing with html2canvas
+    contributionGraph.onload = function() {
+        html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
+            const link = document.createElement('a');
+            link.href = canvas.toDataURL();
+            link.download = 'github_profile.png';
+            link.click();
+        });
+    };
+
+    // Force reload of the image with the proper CORS setting applied
+    contributionGraph.src = contributionGraph.src;
 });
