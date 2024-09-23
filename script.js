@@ -11,7 +11,6 @@ document.getElementById('searchBtn').addEventListener('click', function() {
             return response.json();
         })
         .then(data => {
-            const chartUrl = `https://cors-anywhere.herokuapp.com/https://ghchart.rshah.org/${username}`;
             profileDiv.innerHTML = `
                 <h2>${data.login}</h2>
                 <img src="${data.avatar_url}" alt="${data.login}'s avatar" width="100">
@@ -20,7 +19,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
                 <h3>Contributions:</h3>
-                <img src="${chartUrl}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
+                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
             `;
             downloadBtn.style.display = 'block';
         })
@@ -31,17 +30,21 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 });
 
 document.getElementById('downloadBtn').addEventListener('click', function() {
-    // Show the contribution chart if it was hidden
-    const contributionChart = document.querySelector('#profile img:last-of-type');
-    contributionChart.style.display = 'block';
+    const username = document.getElementById('username').value;
+    const profileDiv = document.getElementById('profile');
 
-    html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL();
-        link.download = 'github_profile.png';
-        link.click();
+    // Download the contribution chart
+    const chartUrl = `https://ghchart.rshah.org/${username}`;
+    const chartLink = document.createElement('a');
+    chartLink.href = chartUrl;
+    chartLink.download = 'github_contributions.png';
+    chartLink.click();
 
-        // Optionally, hide the contribution chart again after download
-        contributionChart.style.display = 'none';
+    // Capture the profile card
+    html2canvas(profileDiv, { useCORS: true }).then(function(canvas) {
+        const profileLink = document.createElement('a');
+        profileLink.href = canvas.toDataURL();
+        profileLink.download = 'github_profile.png';
+        profileLink.click();
     });
 });
