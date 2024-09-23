@@ -17,21 +17,10 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Bio:</strong> ${data.bio || 'N/A'}</p>
                 <p><strong>Location:</strong> ${data.location || 'N/A'}</p>
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
-                <p class="contributions"><strong>Contributions:</strong> Loading...</p> <!-- Placeholder for contributions -->
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
+                <h3>Contributions:</h3>
+                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" />
             `;
-            // Call the GitHub events API to get contributions (example)
-            fetch(`https://api.github.com/users/${username}/events/public`)
-                .then(eventResponse => eventResponse.json())
-                .then(events => {
-                    const contributions = events.length;  // Simple way to count contributions
-                    const contributionsElement = document.querySelector('.contributions');
-                    contributionsElement.innerHTML = `<strong>Contributions:</strong> ${contributions} in the last year`;
-                })
-                .catch(err => {
-                    document.querySelector('.contributions').innerHTML = `<strong>Contributions:</strong> N/A`;
-                });
-
             downloadBtn.style.display = 'block';
         })
         .catch(error => {
