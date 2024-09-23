@@ -19,7 +19,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
                 <h3>Contributions:</h3>
-                <img id="contributionChart" src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
+                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
             `;
             downloadBtn.style.display = 'block';
         })
@@ -31,29 +31,28 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 
 document.getElementById('downloadBtn').addEventListener('click', function() {
     const username = document.getElementById('username').value;
-    const contributionChart = document.getElementById('contributionChart');
+    const profileDiv = document.getElementById('profile');
 
-    // Create a link for the contribution chart
+    // Create a link to download the contribution chart
     const chartUrl = `https://ghchart.rshah.org/${username}`;
-    
-    // Create a temporary link element
     const link = document.createElement('a');
     link.href = chartUrl;
     link.download = 'github_contributions.png';
-    link.style.display = 'none'; // Hide the link
+    
+    // Append to body, trigger click, and remove it
     document.body.appendChild(link);
-    
-    // Trigger the download
     link.click();
-    
-    // Clean up and remove the link
     document.body.removeChild(link);
 
     // Capture the profile card
-    html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
+    html2canvas(profileDiv, { useCORS: true }).then(function(canvas) {
         const profileLink = document.createElement('a');
         profileLink.href = canvas.toDataURL();
         profileLink.download = 'github_profile.png';
+        
+        // Append to body, trigger click, and remove it
+        document.body.appendChild(profileLink);
         profileLink.click();
+        document.body.removeChild(profileLink);
     });
 });
