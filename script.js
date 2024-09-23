@@ -19,14 +19,21 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
                 <h3>Contributions:</h3>
-                <img src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
+                <button id="downloadChartBtn">Download Contributions as Image</button>
             `;
-            downloadBtn.style.display = 'none'; // Hide the download button
+            downloadBtn.style.display = 'block';
+
+            // Set up the download button for the contribution chart
+            document.getElementById('downloadChartBtn').addEventListener('click', function() {
+                const chartUrl = `https://ghchart.rshah.org/${username}`;
+                const link = document.createElement('a');
+                link.href = chartUrl;
+                link.download = 'github_contributions.png';
+                link.click();
+            });
         })
         .catch(error => {
             profileDiv.innerHTML = `<p>User not found. Please try again.</p>`;
             downloadBtn.style.display = 'none';
         });
 });
-
-// Removed the download button event listener entirely
