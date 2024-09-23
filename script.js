@@ -18,7 +18,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Location:</strong> ${data.location || 'N/A'}</p>
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
-                <h3>Contributions:</h3>
+                <h3 id="contributionsText">Contributions:</h3>
                 <img id="contributionChart" src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
             `;
             downloadBtn.style.display = 'block';
@@ -31,9 +31,11 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 
 document.getElementById('downloadBtn').addEventListener('click', function() {
     const contributionChart = document.getElementById('contributionChart');
+    const contributionsText = document.getElementById('contributionsText');
 
-    // Hide the contribution chart before downloading
+    // Hide the contribution chart and its text before downloading
     contributionChart.style.display = 'none';
+    contributionsText.style.display = 'none';
 
     // Check if the contribution chart has loaded
     contributionChart.onload = function() {
@@ -43,8 +45,9 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
             link.download = 'github_profile.png';
             link.click();
 
-            // Show the contribution chart again after downloading
+            // Show the contribution chart and its text again after downloading
             contributionChart.style.display = 'block';
+            contributionsText.style.display = 'block';
         });
     };
 
@@ -52,4 +55,20 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
     if (contributionChart.complete) {
         contributionChart.onload();
     }
+});
+
+// Clear icon functionality
+const usernameInput = document.getElementById('username');
+const clearIcon = document.getElementById('clearIcon');
+
+// Show the clear icon when the input is not empty
+usernameInput.addEventListener('input', function() {
+    clearIcon.style.display = usernameInput.value ? 'block' : 'none';
+});
+
+// Clear the input field when the icon is clicked
+clearIcon.addEventListener('click', function() {
+    usernameInput.value = '';
+    clearIcon.style.display = 'none'; // Hide the icon
+    usernameInput.focus(); // Optional: refocus the input
 });
