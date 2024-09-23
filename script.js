@@ -32,13 +32,25 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 document.getElementById('downloadBtn').addEventListener('click', function() {
     const username = document.getElementById('username').value;
     const profileDiv = document.getElementById('profile');
+    
+    // Function to download image as Blob
+    function downloadImage(url, filename) {
+        fetch(url)
+            .then(response => response.blob())
+            .then(blob => {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+            .catch(error => console.error('Error downloading image:', error));
+    }
 
     // Download the contribution chart
     const chartUrl = `https://ghchart.rshah.org/${username}`;
-    const chartLink = document.createElement('a');
-    chartLink.href = chartUrl;
-    chartLink.download = 'github_contributions.png';
-    chartLink.click();
+    downloadImage(chartUrl, 'github_contributions.png');
 
     // Capture the profile card
     html2canvas(profileDiv, { useCORS: true }).then(function(canvas) {
