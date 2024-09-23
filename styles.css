@@ -26,8 +26,7 @@ h1 {
 
 /* Style the input field container */
 .input-container {
-    margin-left: -25px;
-    padding-left: ;
+    margin-left: -210px;
     position: relative;
     width: 100%; /* Full width */
     max-width: 300px; /* Max width for the input */
