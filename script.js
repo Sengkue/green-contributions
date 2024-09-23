@@ -19,7 +19,7 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <p><strong>Public Repos:</strong> ${data.public_repos}</p>
                 <a href="${data.html_url}" target="_blank">View Profile on GitHub</a>
                 <h3>Contributions:</h3>
-                <img id="contributionGraph" src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" crossorigin="anonymous" />
+                <img id="contributionChart" src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" crossOrigin="anonymous" />
             `;
             downloadBtn.style.display = 'block';
         })
@@ -30,13 +30,10 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 });
 
 document.getElementById('downloadBtn').addEventListener('click', function() {
-    const contributionGraph = document.getElementById('contributionGraph');
+    // Ensure the contribution chart image has been fully loaded before generating the canvas
+    const chartImage = document.getElementById('contributionChart');
     
-    // Set crossOrigin attribute for CORS handling
-    contributionGraph.crossOrigin = "anonymous";
-    
-    // Wait for the image to load completely before capturing with html2canvas
-    contributionGraph.onload = function() {
+    chartImage.onload = function() {
         html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
             const link = document.createElement('a');
             link.href = canvas.toDataURL();
@@ -44,7 +41,8 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
             link.click();
         });
     };
-
-    // Force reload of the image with the proper CORS setting applied
-    contributionGraph.src = contributionGraph.src;
+    
+    chartImage.onerror = function() {
+        alert('Failed to load contribution chart. Please try again.');
+    };
 });
