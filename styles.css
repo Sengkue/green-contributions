@@ -92,6 +92,15 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
+    opacity: 0; /* Start hidden */
+    transform: translateY(-20px); /* Start off slightly above */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* Transition effect */
+}
+
+/* Profile visibility when data is loaded */
+#profile.visible {
+    opacity: 1;
+    transform: translateY(0); /* Move into place */
 }
 
 /* Add a hover effect for the profile card */
