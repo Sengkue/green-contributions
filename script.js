@@ -3,6 +3,11 @@ document.getElementById('searchBtn').addEventListener('click', function() {
     const profileDiv = document.getElementById('profile');
     const downloadBtn = document.getElementById('downloadBtn');
 
+    // Clear previous profile content and hide the profile div
+    profileDiv.innerHTML = '';
+    profileDiv.style.display = 'none';
+    downloadBtn.style.display = 'none';
+
     fetch(`https://api.github.com/users/${username}`)
         .then(response => {
             if (!response.ok) {
@@ -21,11 +26,13 @@ document.getElementById('searchBtn').addEventListener('click', function() {
                 <h3 id="contributionsText">Contributions:</h3>
                 <img id="contributionChart" src="https://ghchart.rshah.org/${username}" alt="${data.login}'s contributions" style="border-radius: 0; box-shadow: none; width: 100%; max-width: 600px;" />
             `;
-            downloadBtn.style.display = 'block';
+            profileDiv.style.display = 'block'; // Show profile card
+            downloadBtn.style.display = 'block'; // Show download button
         })
         .catch(error => {
             profileDiv.innerHTML = `<p>User not found. Please try again.</p>`;
-            downloadBtn.style.display = 'none';
+            profileDiv.style.display = 'block'; // Show the message
+            downloadBtn.style.display = 'none'; // Hide download button
         });
 });
 
