@@ -32,32 +32,32 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 document.getElementById('downloadBtn').addEventListener('click', function() {
     const username = document.getElementById('username').value;
     const profileDiv = document.getElementById('profile');
-    const contributionChart = document.getElementById('contributionChart');
 
-    // Create a temporary image to download the contribution chart
-    const chartUrl = `https://ghchart.rshah.org/${username}`;
-
-    // Create an image element
-    const img = new Image();
-    img.crossOrigin = 'Anonymous'; // Enable CORS
-    img.src = chartUrl;
-
-    img.onload = function() {
-        const link = document.createElement('a');
-        link.href = img.src;
-        link.download = 'github_contributions.png';
-        link.click();
-
-        // Capture the profile card after downloading the chart
-        html2canvas(profileDiv, { useCORS: true }).then(function(canvas) {
-            const profileLink = document.createElement('a');
-            profileLink.href = canvas.toDataURL();
-            profileLink.download = 'github_profile.png';
-            profileLink.click();
+    // Fetch the contribution chart as a Blob
+    fetch(`https://ghchart.rshah.org/${username}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch contribution chart');
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'github_contributions.png';
+            link.click();
+            URL.revokeObjectURL(url); // Clean up the URL.createObjectURL
+        })
+        .catch(error => {
+            console.error('Error downloading chart:', error);
         });
-    };
 
-    img.onerror = function() {
-        alert('Failed to load contribution chart. Please try again.');
-    };
+    // Capture the profile card
+    html2canvas(profileDiv, { useCORS: true }).then(function(canvas) {
+        const profileLink = document.createElement('a');
+        profileLink.href = canvas.toDataURL();
+        profileLink.download = 'github_profile.png';
+        profileLink.click();
+    });
 });
