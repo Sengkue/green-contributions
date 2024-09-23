@@ -32,6 +32,9 @@ document.getElementById('searchBtn').addEventListener('click', function() {
 document.getElementById('downloadBtn').addEventListener('click', function() {
     const contributionChart = document.getElementById('contributionChart');
 
+    // Hide the contribution chart before downloading
+    contributionChart.style.display = 'none';
+
     // Check if the contribution chart has loaded
     contributionChart.onload = function() {
         html2canvas(document.getElementById('profile'), { useCORS: true }).then(function(canvas) {
@@ -39,6 +42,9 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
             link.href = canvas.toDataURL();
             link.download = 'github_profile.png';
             link.click();
+
+            // Show the contribution chart again after downloading
+            contributionChart.style.display = 'block';
         });
     };
 
