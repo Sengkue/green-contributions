@@ -37,13 +37,3 @@ document.getElementById('downloadBtn').addEventListener('click', function() {
         link.click();
     });
 });
-
-
-document.getElementById('downloadBtn').addEventListener('click', function() {
-    html2canvas(document.getElementById('profile'),{ useCORS: true }).then(function(canvas) {
-        const link = document.createElement('a');
-        link.href = canvas.toDataURL();
-        link.download = 'github_profile.png';
-        link.click();
-    });
-});
