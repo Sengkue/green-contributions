@@ -27,8 +27,8 @@ h1 {
 /* Style the input field container */
 .input-container {
     position: relative;
-    width: 300px; /* Width of the input field */
-    margin-bottom: 20px; /* Space between input and buttons */
+    width: 100%; /* Full width */
+    max-width: 300px; /* Max width for the input */
 }
 
 /* Style the input field */
@@ -67,7 +67,7 @@ input[type="text"]:focus {
 button {
     padding: 10px 20px;
     font-size: 1rem;
-    margin: 5px; /* Slightly reduce margin for closer spacing */
+    margin: 10px;
     border: none;
     border-radius: 25px;
     cursor: pointer;
@@ -92,15 +92,6 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
-    opacity: 0; /* Start hidden */
-    transform: translateY(-20px); /* Start off slightly above */
-    transition: opacity 0.3s ease, transform 0.3s ease; /* Transition effect */
-}
-
-/* Profile visibility when data is loaded */
-#profile.visible {
-    opacity: 1;
-    transform: translateY(0); /* Move into place */
 }
 
 /* Add a hover effect for the profile card */
